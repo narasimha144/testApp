@@ -38,6 +38,7 @@ int Utils::setupServerSocket(int port, int numOfConnections)
         cout << "Error!! Socket creation failed: " << errno << endl;
         return -1;
     }
+    cout << "Socket creation successful" << endl;
 
     int enable = 1, ret;
     ret = setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)); 
@@ -68,6 +69,7 @@ int Utils::setupServerSocket(int port, int numOfConnections)
         }
         return -1; 
     }
+    cout << "Socket bounded to port: " << port << endl;
 
     ret = listen(master_socket, numOfConnections);
     if(ret < 0)

@@ -17,12 +17,16 @@ bool Client::createClient()
 
 void Client::connectToServer(string serverIp, int port)
 {
+    cout << "Waiting for connection to server..." << endl;
+    
     connectionStatus =  Utils::connectClientToServer(fd, serverIp, port);
     if(connectionStatus == false)
     {
         cout << "Client connection to server error" << endl;
         return;
     }
+    
+    cout << "Server connection established" << endl;
 
     string msgFromServer, msgToServer;
     bool endSession = false;

@@ -19,7 +19,6 @@ bool Server::startServer()
         cout << "Server start failed" << endl;
         return false;
     }
-    cout << "Server started" << endl;
     return true;
 }
 
@@ -27,12 +26,14 @@ void Server::acceptClient()
 {
     int clientFd;
 
+    cout << "waiting for clients..." << endl;
     bool clientConnectionStatus = Utils::acceptClient(master_fd, clientFd);
     if(clientConnectionStatus == false)
     {
         cout << "could not connect to client" << endl;
         return;
     }
+
 
     string msgFromClient, msgToClient;
     bool endSession = false;
