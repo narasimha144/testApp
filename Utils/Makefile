@@ -1,4 +1,4 @@
-OBJ_DIR = /Users/narasimha/personal/testApp/Utils/obj/
+OBJ_DIR = /Users/narasimha/personal/testApp/obj/
 HDR_DIR = /Users/narasimha/personal/testApp/Utils/h/
 
 all:
