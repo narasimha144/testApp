@@ -48,7 +48,7 @@ void Server::acceptClient()
             endSession = true;
         }
         
-        cin >> msgToClient;
+        getline(cin, msgToClient);
         Utils::sendMessage(clientFd, msgToClient);
     }
 

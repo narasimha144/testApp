@@ -33,7 +33,7 @@ void Client::connectToServer(string serverIp, int port)
 
     while(!endSession)
     {
-        cin >> msgToServer;
+        getline(cin, msgToServer);
         Utils::sendMessage(fd, msgToServer);
         
         Utils::readMessage(fd, msgFromServer);
