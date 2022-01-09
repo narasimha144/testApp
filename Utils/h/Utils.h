@@ -18,5 +18,7 @@ class Utils
         static void sendMessage(int fd, string message);
 
         static void readMessage(int fd, string& message);
+
+        static void acceptIncomingClients(int serverFd, int &clientFd);
         
 };

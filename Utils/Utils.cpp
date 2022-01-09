@@ -135,3 +135,71 @@ bool Utils::acceptClient(int serverFd, int &clientFd)
     return true;
 }
 
+bool Utils::acceptIncomingClients(int serverFd, int &clientFd)
+{
+    fd_set readfds;
+    int client_socket[30], max_clients=30;
+    
+    int sd, max_sd, activity;
+    
+    cout << "Waiting for connections..." << endl;
+    
+    while(true)
+    {
+        FD_ZERO(&readfds);
+
+        FD_SET(serverFd, &readfds);
+        max_sd = serverFd;
+
+        for(int i=0; i< max_clients; i++)
+        {
+            sd = client_socket[i];
+            
+            if(sd > 0)
+            {
+                FD_SET(sd, &readfds);
+            }
+
+            if(sd > max_sd)
+            {
+                max_sd = sd;
+            }
+        }
+
+        activity = select(max_sd+1, &readfds, NULL, NULL, NULL);
+
+        if((activity < 0) && (errno != EINTR))
+        {
+            cout << "Error in select" << endl;
+            return false;
+        }
+
+        if(FD_ISSET(serverFd, &readfds))
+        {
+            int clientFd;
+            if(!acceptClient(serverFd, clientFd))
+            {
+                return false;
+            }
+
+            for(int i=0;i < max_clients; i++)
+            {
+                if(client_socket[i] == 0)
+                {
+                    client_socket[i] = clientFd;
+                    cout << "Adding to list of sockets as " << i << endl;
+                }
+            }
+        }
+
+        for(int i=0; i<max_clients; i++)
+        {
+            sd = client_socket[i];
+            if(FD_ISSET(sd, &readfds))
+            {
+                
+            }
+        }
+    }
+}
+
